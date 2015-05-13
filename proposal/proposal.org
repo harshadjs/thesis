@@ -1,0 +1,35 @@
+#+TITLE: Understanding the Impact of In-Network Content Caching on Future Internet Design
+#+AUTHOR: Master's Thesis Proposal by /Harshad Shirwadkar/
+#+EMAIL: harshad@cmu.edu
+#+OPTIONS: \n:t toc:nil
+
+* Introduction
+  - All FIAs propose in-network caching
+	\cite{weinsberg2006putting}
+  - But no one really knows
+	- How would webpages look like
+	- How would name service work
+	- Tradeoffs between privacy and performance
+	- APIs that these caches would provide
+	- Content routing
+* Background
+  - NDN
+  - XIA
+* What will you do
+  - Study in context of XIA
+  - Study some of the problems mentioned above and propose solutions
+  - Define Caching APIs
+* Evaluation
+  - Promising arguments about at least 2 of the above questions
+  - Running prototypes
+* Deliverables
+  - Paper
+  - Simulators
+  - Contribution to XIA
+* Expected Timetable
+  - Work done so far
+  - Summer
+  - Fall 2
+
+\bibliographystyle{abbrv}
+\bibliography{refs}

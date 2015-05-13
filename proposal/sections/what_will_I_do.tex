@@ -1,0 +1,55 @@
+\section{Goals}
+As mentioned in the previous section, the impact of content caches on
+network architecture design has not been well studied. Studying this
+would be the ultimate goal of my thesis. In my thesis, I not only wish
+to find answers to some of the challenging questions but also come up
+with interesting research challenges that can be posed to the ICN
+community. In order to establish some context to the questions
+mentioned in \ref{icn_dns}, \ref{priv} and \ref{apis}, I will try to
+study these problems with respect to \emph{eXpressive Internet
+  Architecture}\cite{xia} which is an ongoing research project at CMU.
+I don't want to restrict myself to the questions mentioned in this
+proposal. Rather, I am excited to come up with new research
+questions. Following sections list a few candidate questions that can
+be looked at.
+
+\subsection{DNS and ICN}
+\label{icn_dns}
+Traditionally, DNS has been responsible for providing IP addresses for
+names. Note that these names have been identifying hosts (typically
+servers running that service). However, in ICN, DNS has much larger
+role to play: it must provide network addresses for content names as
+well as host names. Since content names outnumber host names by
+several orders of magnitude, we most probably will need to redesign
+existing DNS design. For example, to save DNS overhead, wherever
+possible, content publisher might provide Network IDs for some content
+objects (e.g., in case of web pages where publisher needs to embed
+links to other web pages). However, this means we are essentially
+moving name look up from client to the publisher. This is quite
+opposite to today's DNS mechanism and hence needs in-depth study.
+
+\subsection{Privacy and Performance}
+\label{priv}
+Privacy comes at a cost and that cost has been well captured in
+\cite{cost_https}. In context of ICN caching, the cost of privacy
+might be as severe as not being able to cache content at all. For
+example, caching becomes impossible when client opens a secure tunnel
+with the end server (as in TLS). Also, some of the recent proposals in
+the networking community demand the use of HTTPS by default. Such
+proposals can prove to be detrimental to caching in ICN. Since
+security can not be compromised, ICN caching needs to accommodate the
+existence of TLS like security protocols. One possible way achieve
+that by letting clients establish tunnels with in-network caches
+instead of final server. But, what might its implications be? Aren't
+we adding extra processing overhead? In the context of privacy, we
+need to find answers to questions like these.
+
+\subsection{Caching APIs}
+\label{apis}
+Today, we have the notion of sockets as end points of communication.
+But, is that sufficient in ICN since we care about data more? For
+example, in ICN, since caches exist everywhere, we could give
+abilities to the applications to pre-allocate a cache \emph{slice} on
+router. But, there are many pros and cons in doing this. So, the
+problem of defining Caching APIs aims at identifying the trade-offs
+and come up with a set of APIs that we could provide to applications.

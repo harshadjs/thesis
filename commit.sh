@@ -8,6 +8,7 @@ function perform_commit() {
 		commit_message="$(date)"
 	fi
 	git commit -m "${commit_message}"
+	git push origin master
 }
 
 

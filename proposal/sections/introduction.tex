@@ -1,0 +1,68 @@
+ \section{Introduction and Background}
+\label{intro}
+Information Centric Networking(ICN) is an approach of redesigning the
+Internet as a network architecture that focuses on \emph{content} (or
+named data) rather than \emph{hosts}(as in today's Internet). Various
+ongoing future Internet projects like XIA\cite{xia}, NDN\cite{ndn}
+incorporate the idea of ICN. The reason for this shift of focus is that
+most of the applications running over the Internet today are content
+oriented. For example, when you access youtube.com in your browser
+window, you are more interested in watching the video than connecting
+to youtube's video server. The nodes in ICN talk in terms of
+content. So, these architectures have notions of \emph{Content
+  Request} and \emph{Content Response} (See table
+\ref{table:content}).
+
+\begin{table}
+  \begin{center}
+    \begin{tabular} {c c c}
+      Architecture & Content Request & Content Response \\
+      \hline
+      NDN & Interest Packet & Data Packet \\
+      XIA & CID Request packet & CID Response Packet \\
+    \end{tabular}
+    \caption{Notion of Content Request and Content Response in various
+    FIA proposals}
+    \label{table:content}
+  \end{center}
+\end{table}
+
+\subsection{Content Caching in ICN}
+\label{intro_caching}
+One of the key features of these architectures is ``in-network
+caching''. The \emph{Content Response} objects enable in-network
+caching on routers (or even on dedicated cache servers). In-network
+caching optimizes bandwidth consumption, reduces network congestion
+and provides fast fetching for the popular content.
+
+
+\subsection{Open Problems related to Content Caching in ICN}
+\label{caching_problems}
+In the context of in-network-caching, much has been researched about
+content popularity determination, cache eviction policies, cache
+topologies. But, there is not much literature on the effect of
+prevalence of content caches on other components of the Internet
+(transport protocols / naming service). In other words, we do not
+exactly know how the existing network protocols should be modified to
+effectively utilize the caching infrastructure. Section \ref{icn_dns}
+talks about the impact on DNS and the questions that need to be
+answered. Section \ref{priv} talks about trade-offs between privacy
+and caching performance. Section \ref{apis} looks at what APIs
+underlying caching architecture can provide to the applications
+programmers to effectively use caches. Note that in order to limit the
+proposal size, I have only included 3 problem areas. I intend to look
+at many more.
+
+As this study involves understanding the impact of content caching on
+layers from top to bottom, we call it a ``Vertical Slice
+Approach''. However, given the time constraints, it might not be
+possible to study each and every layer. In the initial period, I will
+spend considerable amount of time on identifying which problems to
+study (See section \ref{timetable} for details).
+
+%% \begin{itemize}
+%% \item How would webpages look like
+%% \item How would name service work
+%% \item Tradeoffs between privacy and performance
+%% \item Content routing
+%% \end{itemize}
