@@ -1,23 +1,23 @@
 #+TITLE: Make Arguments!
 
-* TODOs
-** Tasks
-*** Caching APIs
+* Current Status
+  |-----------------------------+-------------------+----------------------+-------------|
+  | Item                        | Expected Deadline | Status               | Timestamp   |
+  |-----------------------------+-------------------+----------------------+-------------|
+  | Caching APIs Final Proposal | May 28th          |                      |             |
+  |                             |                   | Dan's Mail           | Apr 10 2015 |
+  |                             |                   | Xcache APIs proposed | Apr 7 2015  |
+  |-----------------------------+-------------------+----------------------+-------------|
+  | Reliable Transport Proposal | May 28th          |                      |             |
+  |-----------------------------+-------------------+----------------------+-------------|
+* Tasks
+** Caching APIs
 	- Take a specific usecase and see what APIs would it require.
 	- Do this for several usecases.
 	  - Network Operator
 	  - Video Distribution System
 	- Come up with a final proposal
-*** Reliable Transport Protocol for Content Chunks
-*** 
-** Timeline
-   |-----------------------------+-------------------+----------------------+-------------|
-   | Item                        | Expected Deadline | Status               | Timestamp   |
-   |-----------------------------+-------------------+----------------------+-------------|
-   | Caching APIs Final Proposal | May 28th          |                      |             |
-   |                             |                   | Dan's Mail           | Apr 10 2015 |
-   |                             |                   | Xcache APIs proposed | Apr 7 2015  |
-   |-----------------------------+-------------------+----------------------+-------------|
-   | Reliable Transport Proposal | May 28th          |                      |             |
-   |-----------------------------+-------------------+----------------------+-------------|
-** Readings
+** Reliable Transport Protocol for Content Chunks
+** 
+
+* Readings
