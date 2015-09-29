@@ -1,0 +1,98 @@
+#+TITLE: Master
+#+AUTHOR: Harshad Shirwadkar
+#+EMAIL: harshad@cmu.edu
+
+* Chunk-Aware and Chunk-Agnostic Systems
+
+  Content Distribution  Applications can be broadly  classified into 2
+  categories:
+  - Chunk-Aware Applications
+  - Chunk-Agnostic Applications
+
+  Chunk-Aware  Applications take  decisions on  chunk granularity  and
+  Chunk-Agnostic  applications   take  decisions  on  object   /  file
+  granularity.
+
+  Let's  look in  a little  depth at  both these  systems and  how XIA
+  serves them.
+
+** Chunk-Aware Systems
+
+*** Motivation of Chunking in Chunk-Aware Systems
+
+- Bittorrent: Achieve *Parallelism* by fetching different parts of a
+  file from different sources Chunk ID is hash of chunk content;
+  Achieve *self certification*
+
+- Netflix: Achieve *Quality Control* by fetching parts of a video file
+  of variable quality; Achieve *self-certification*
+
+*** Motivation of Chunks in ICN / XIA
+
+- Caching of chunks by reducing latency
+- Achieve Self-certification
+
+*** Does a chunk from a Chunk-Aware system map to chunk in ICN/XIA?
+
+- If Yes: Do goals of chunking in XIA and in chunk-aware systems
+  match?
+- If No: Big problem: A chunk in application maps to multiple chunks
+  on N/W. We need to explicitly store this mapping somewhere.
+- NEEDS RESEARCH: But assume yes!
+
+
+** Chunk-Agnostic Systems
+
+They talk in terms of Files. e.g., HTTP GET /xyz.com/ab/cd.pdf
+
+*** Is XIA as of now a good fit for these apps?
+
+Imagine:
+We have a HTML page that contains an image
+--
+<img src="/abc/def.png">
+--
+
+If the user wants to use CID principal, how?  Rely on DNS like
+service which provides all the chunks belonging to this file Embed
+a list of chunks in HTML Write all the chunks to a manifest file
+and add src=“.../def.png.manifest” so that browser knows that the
+chunks should be fetched using CID principal
+
+- Disadvantages of all of these:
+
+  - All of the above are a lot of work for application.  Network can
+    not make use of locality
+
+  - So, as of now, XIA is not a great fit for chunk-agnostic
+    applications. But, wait...
+
+*** How about OIDs ? or Network Layer Objects?
+
+Network layer provides aggregation mechanism for an object. Thus, it
+knows about the object and not just chunks. Now it can take decisions
+based on the locality too! Yay!
+
+*** OID Specification
+
+- Routing
+- Caching
+- Design
+- API
+- Simplifies RIDs too
+
+
+* Objects
+
+* ASIDE
+- Apps determine chunk sizes arbitrarily. But it has a great impact on
+  caching  performance. Network  layer should  perform chunking  OR at
+  least it should provide some the application some hints.
+
+- In Chunk-Aware systems, if there is  no notion of objects, then what
+  about locality?  They need  that too.  Especially bittorrent  as the
+  main   purpose    of   it    performing   chunking    is   achieving
+  parallelism. While being  able to do that, it does  not want to give
+  away locality.
+
+- File-system level deduplication can avoid a lot of problems
