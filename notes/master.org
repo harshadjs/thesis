@@ -2,7 +2,9 @@
 #+AUTHOR: Harshad Shirwadkar
 #+EMAIL: harshad@cmu.edu
 
-* Chunk-Aware and Chunk-Agnostic Systems
+* Objects
+
+* Chunk-Aware and Chunk-Agnostic Systems <2015-09-29 Tue>
 
   Content Distribution  Applications can be broadly  classified into 2
   categories:
@@ -81,8 +83,6 @@ based on the locality too! Yay!
 - API
 - Simplifies RIDs too
 
-
-* Objects
 
 * ASIDE
 - Apps determine chunk sizes arbitrarily. But it has a great impact on
