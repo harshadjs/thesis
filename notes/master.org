@@ -1,8 +1,16 @@
-#+TITLE: Master
+#+TITLE: master
 #+AUTHOR: Harshad Shirwadkar
 #+EMAIL: harshad@cmu.edu
+#+OPTIONS: toc:nil
 
-* Objects
+* Goals
+- Give the chunk-agnostic applications the ability to talk in terms of
+  objects
+- Let the network layer be aware of relationship between chunks
+* Possible Design Options
+#+INCLUDE: ./_oid_d0_manifest.org :minlevel 2
+#+INCLUDE: ./_oid_d1_object_lib.org :minlevel 2
+#+INCLUDE: ./_oid_d2_nwlayer.org :minlevel 2
 
 * Chunk-Aware and Chunk-Agnostic Systems <2015-09-29 Tue>
 
@@ -85,6 +93,7 @@ based on the locality too! Yay!
 
 
 * ASIDE
+** About Thesis
 - Apps determine chunk sizes arbitrarily. But it has a great impact on
   caching  performance. Network  layer should  perform chunking  OR at
   least it should provide some the application some hints.
@@ -96,3 +105,24 @@ based on the locality too! Yay!
   away locality.
 
 - File-system level deduplication can avoid a lot of problems
+
+** Ideas
+
+*** Comparison of various Internet Architectures
+What are  various dimensions in  which we can compare  Internet archs?
+Privacy? Performance? Evolvibility?  We can  go usecase by usecase.  3
+aspects: Code, RFC level,
+
+TODO:  Maybe I  can study  the use  case of  the web  across different
+architectures?
+
+*** Video
+DASH-JS: HTTP  video player.  Can we predict  the throughput  based on
+history of various client-server pairs?
+
+*** Storage medium selection
+
+*** CID + Privacy
+1. Encrypt_with_common_key(content)
+2. Ecnrypt_with_user_specific_key(common_key)
+

@@ -1,0 +1,21 @@
+#+AUTHOR: Harshad Shirwadkar
+#+EMAIL: harshad@cmu.edu
+
+* Using Application Independent Object Library
+** Idea
+- An user-space object library provides object level API to
+  applications
+- Object library breaks objects provided by applications into chunks
+- It forms a root chunk which points to all other chunks in the object
+- Object library interfaces with the network layer by chunk-level APIs
+  that the network provides
+** Diagram
+[[./img/oid-d1-objlib.pdf]]
+** Pros
+- Cacheable meta-data: rootchunk is cacheable
+- A good interface for chunk-agnostic applications: with a very
+  minimal effort, a chunk-agnostic application can use the notion of
+  objects
+** Cons
+- Extra chunk level RTT to fetch the rootchunk
+
