@@ -3,6 +3,8 @@
 #+EMAIL: harshad@cmu.edu
 #+OPTIONS: toc:nil
 
+#+INCLUDE: ./http_over_xia.org :minlevel 1
+
 * Goals
 - Give the chunk-agnostic applications the ability to talk in terms of
   objects
@@ -107,7 +109,6 @@ based on the locality too! Yay!
 - File-system level deduplication can avoid a lot of problems
 
 ** Ideas
-
 *** Comparison of various Internet Architectures
 What are  various dimensions in  which we can compare  Internet archs?
 Privacy? Performance? Evolvibility?  We can  go usecase by usecase.  3
@@ -126,3 +127,17 @@ history of various client-server pairs?
 1. Encrypt_with_common_key(content)
 2. Ecnrypt_with_user_specific_key(common_key)
 
+*** Issues in HTTP and XIA
+- We are using HTTP, but we are using CIDs. What's this?
+- Circular dependency of HTML
+- Is HTML file a content object?
+- Making chunk information available to network layer, good or bad?
+- URL: CID://
+- There could be different APP that publishes stuff: Why?!?!
+*** SPDY protocol
+- Tunnel for transferring HTTP requests / responses over the wire
+- Gzip compression
+- Send multiple resources over the same connection
+** C3 Aditya Ganjam
+- What is strawman?
+- Global state? how global?
