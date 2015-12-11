@@ -5,14 +5,15 @@
 
 #+INCLUDE: ./http_over_xia.org :minlevel 1
 
-* Goals
-- Give the chunk-agnostic applications the ability to talk in terms of
-  objects
-- Let the network layer be aware of relationship between chunks
-* Possible Design Options
-#+INCLUDE: ./_oid_d0_manifest.org :minlevel 2
-#+INCLUDE: ./_oid_d1_object_lib.org :minlevel 2
-#+INCLUDE: ./_oid_d2_nwlayer.org :minlevel 2
+
+* Main Questions
+- Content Streaming in XIA
+- Chunk-Aware vs Chunk-Agnostic Applications
+- URL Format
+- Are we doing HTTP or CID?
+  - Metadata placement: in URL / in common metadata header / in
+    object itself?
+- Content Negotiation
 
 * Chunk-Aware and Chunk-Agnostic Systems <2015-09-29 Tue>
 
@@ -94,6 +95,25 @@ based on the locality too! Yay!
 - Simplifies RIDs too
 
 
+** Possible Design Options
+#+INCLUDE: ./_oid_d0_manifest.org :minlevel 3
+#+INCLUDE: ./_oid_d1_object_lib.org :minlevel 3
+#+INCLUDE: ./_oid_d2_nwlayer.org :minlevel 3
+
+* Content Negotiation
+- Is content negotiation a very important feature?
+  - Different content serving mechanisms: past and future.
+  - Who all need (or can benefit from) content negotiation?
+    - FTP
+    - BitTorrent
+    - Netflix / Video
+    - Audio
+    - HTTP
+    - NDN
+- If yes, can we push at network layer?
+
+
+
 * ASIDE
 ** About Thesis
 - Apps determine chunk sizes arbitrarily. But it has a great impact on
@@ -141,3 +161,7 @@ history of various client-server pairs?
 ** C3 Aditya Ganjam
 - What is strawman?
 - Global state? how global?
+* Links
+- Information Centrin Networking: Baseline scenarios: RFC 7476
+- A Survey of Information-Centric Networking Research
+  http://www.aueb.gr/users/vsiris/publications/p24_ICN_survey.pdf
