@@ -22,7 +22,7 @@ source: [[https://en.wikipedia.org/wiki/List_of_HTTP_header_fields][Wikipedia]]
 | Accept-Encoding     | List of acceptable encodings. See HTTP compression. | Accept-Encoding: gzip, deflate | Permanent  |          |
 | Accept-Language     | List of acceptable human languages for response. See Content negotiation. | Accept-Language: en-US | Permanent  |          |
 | Accept-Datetime     | Acceptable version in time | Accept-Datetime: Thu, 31 May 2007 20:35:00 GMT | Provisional |          |
-| Authorization       | Authentication credentials for HTTP authentication | Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ== | Permanent  |          |
+| *Authorization*     | Authentication credentials for HTTP authentication | Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ== | Permanent  |          |
 | Cache-Control       | Used to specify directives that must be obeyed by all caching mechanisms along the request-response chain | Cache-Control: no-cache | Permanent  |          |
 | Connection          | Control options for the current connection and list of hop-by-hop request fields[8] | Connection: keep-alive |            |          |
 | Connection: Upgrade |                      |            |            |          |
