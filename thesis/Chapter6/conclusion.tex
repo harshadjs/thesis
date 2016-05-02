@@ -1,0 +1,32 @@
+\chapter{Conclusion}
+\label{sec:conclusion}
+
+The old implementation of the content principal did not support
+reliable transport of content objects. The ability to reliably deliver
+content objects is crucial for the World Wide Web. We thus implemented
+content principal implementation to an application called
+XcacheD. Moving content principal implementation to an application was
+not a trivial task. It involved redefining interfaces with the network
+stack. We carefully studied possible approaches and implemented the
+content principal handling in Xcached application.
+
+In order to fetch content objects directly by human readable names, we
+defined a new XIA principal type - nCID. We addressed the authenticity
+and integrity issues of the new principal type. The new principal type
+allowed the clients to avoid name lookups for fetching content chunks.
+
+We classified the web resources into three categories: static
+resources, dynamic resources and multiform resources. XIA's different
+communication principals supported these different web resources. We
+argued that the static resources can be well represented with CIDs,
+the dynamic resources can be well represented with SIDs and the
+multiform resources can be well represented with nCIDs.
+
+In order to effectively reference these various resources, we defined
+a URL scheme. We defined a generic URL scheme to map any XIA address
+to serialized character string. This scheme allowed us to represent
+addresses of static and dynamic resources. We then defined URL format
+for nCID principal that allowed us to address the multiform resources.
+
+With the above contributions, we modeled the World Wide Web on
+eXpressive Internet Architecture.

@@ -1,0 +1,289 @@
+\chapter{Fetching Named Content in XIA}
+\label{chap:namedcontent}
+
+\section{Motivation}
+
+In order to effectively utilize in-network caches, it is important
+that the resources in the web are cacheable. Cacheability of the
+resources really depends on its reusability. Static resources (objects
+images, video chunks) are probably the best candidates for utilizing
+in-network storage. But, the majority of web content falls in the
+other two categories.
+
+It can be argued that dynamic resources can make the least of use out
+of in-network caches. The primary reason being that dynamic resources
+are generated upon the request arrival and hence are highly
+non-reusable.
+
+But the resources that are of interest to us are the multiform
+resources that we saw in chapter \ref{chap:www}. Recall that these
+resources exists in multiple forms at a same time or at different
+times. Clients \emph{choose} a representation that suites their need
+the mot. They are reusable for the very reason that upon sending the
+same request multiple times, they respond with the same content. What
+can we do to make these multiform resources cacheable at the same time
+preserve their multiformity?
+
+\subsection{Human Readable Names for Multiform Resources}
+
+We have seen that web relies on human readable names for identifying
+multiform resources and in general all the web resources. Even though
+cryptographic identifiers have inherent security properties, what
+makes human readable names a preferred choice?
+
+The first obvious reason is that the names are more
+understandable. Users establish trust in human readable Identifiers
+such as``facebook.com'' much easily than in random cryptic hex string
+such as ``0ABF1866BD7182...''.
+
+The second reason is that multiform resources change their
+representation. For example, content associated with the resource
+identified by ``http://www.cnn.com'' changes often. So, as time passes
+multiform web resources change their representation. Also, time is not
+the only dimension along which these resources change their
+representation. Another such dimension could be UserAgent. With the
+advent of smart-devices, number of platforms from which web resources
+are accessed has been increasing like never before. That poses us with
+the challenge of presenting the same resource in different forms based
+on the platform that the user is requesting the resource from.
+
+Cryptographic identifiers have the disadvantage that an identifier can
+only point to a particular representation. It also implies that it is
+not possible for us to allocate an identifier for content that we
+don’t know in advance. So, crypto IDs do not support the property of
+late binding.
+
+\section{Locating Content using Human Readable Names}
+
+In the last section we saw the reasons why the world wide web
+identifies and locates resources by human readable names. Let’s dive
+deep into the process of locating and fetching of a resource
+identified by a human readable name.
+%<explain what happens today>
+Possible approaches to locate content using human readable names in
+XIA are as follows:
+\begin{itemize}
+\item Keep a DNS like mapping system that maps names to CIDs
+\item Locate content directly by human readable names
+\end{itemize}
+
+\subsection{Problems with DNS like mapping system}
+
+In this approach, we would need a naming system that maps human
+readable names to CIDs. Users first query the naming system to get the
+CID and then request the CID. The naming systems could well be
+established at organizational levels like today. Although scalable,
+this approach suffers from following issues.
+
+Size of the mapping system: Firstly, the size of the mappings that the
+system needs to maintain is directly proportional to number of
+cacheable objects that the publisher has as opposed to number of hosts
+in today’s Internet. It is evident that number of objects outnumbers
+number of hosts by orders of magnitude. So, we would need really huge
+mapping system.
+
+Number of roundtrips: In order to fetch a CID for a particular name,
+the web user would need to make several roundtrips to and from the
+naming system. Depending upon the model used by the naming system, the
+consumer could take from one to several roundtrips before it can know
+the CID corresponding to the content name.
+
+Security Issues: Once the consumer receives CID corresponding to a
+name why would the consumer believe that mapping between the name and
+the CID is authentic? Hence, the content retrieval architecture must
+address the security issues somewhere. However, that loses the whole
+point of having cryptographic identifiers. Remember that one important
+property of crypto-IDs is that they are self certifying.
+
+Because of the issues mentioned above, it becomes unwise to use a
+naming system for locating content by name. Therefore, we take the
+second approach of directly addressing content by human readable
+identifiers. The following sections describe the new principal type
+that we define and address the security concerns raised by human
+readable names.
+
+\section{nCID Principal Type}
+
+\subsection{Definition}
+
+In order to effectively eliminate a huge naming system and support the
+multiform content on the world wide web, we define a new principal
+type which allows locating content directly by human readable
+names. Just like CIDs, the content requested by the consumer using
+nCID is retrieved from anywhere in the network. The XID type nCID is
+defined as follows:
+
+\begin{verbatim}
+nCID = hash(Human Readable Name + Publisher's Public Key Fingerprint)
+\end{verbatim}
+nCID is thus content with a human readable name that is verified by a
+publisher.
+
+\subsection{Semantics}
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}
+      {l | c}
+      \hline
+      XputChunk & StoreContent(), XaddRoute() \\
+      XgetChunk & Xconnect(CID Dag), Xrecv() \\
+    \end{tabular}
+    \caption{nCID Principal Semantics}
+    \label{tab:ncidapis}
+  \end{center}
+
+\end{table}
+
+The nCID principal allows users to retrieve content identified by
+human readable names from anywhere in the network. Table
+\ref{tab:ncidapis} shows the APIs that nCID supports. Similar to CIDs,
+sending content request for nCID type using \texttt{getNamedContent()}
+initiates a transport session with any in-network cache or the
+original publisher. This reliable transport session is then used to
+deliver content to end consumers.
+
+The \texttt{publishNamedContent(name, signature, public key
+  fingerprint)} call tells the network that the content identified by
+a human readable name is available with the publisher. It is verified
+by a private key corresponding to the public key passed as an
+argument. Xcache expects that the signature passed an argument is
+generated in a certain way (we elaborate upon it in the following
+section). The public key fingerprint and the signature is used by
+in-network devices and the endpoints to perform security checks.
+
+\section{Security Issues with Named Content}
+
+\subsection{nCID Security Requirements}
+
+XIA’s intrinsic security requirement makes it mandatory for the XIA
+prinicpals to provide integrity and authenticity for the communication
+operation. CIDs provide the integrity and authentication by defining
+identifiers as the hash of the content so that when the consumer
+receives the content and the CID, it has a reason to believe that the
+content has not be tampered with and has been received from an
+authentic publisher.
+
+We argue that satisfying following four requirements provides exactly
+these guarantees for nCID principal type.
+
+\begin{enumerate}
+\item{Ability to Verify Binding between Name and Content} \\
+The consumer and in-network devices should have a reason to believe
+that the content and name are tied together. CIDs provide this
+guarantee inherently. For nCIDs, we rely on public key infrastructure
+to provide the guarantees.
+\item{Ability to Verify Content Integrity} \\
+The consumer should have a reason to believe that the content has not
+been tampered with.
+\item{Ability for Caches to Verify All These at Minimum Cost}\\
+The in-network caches need to perform these security checks before
+they can cache a copy of the object. Applications can use different
+trust models. It would be inefficient for in-network caches to verify
+authenticity, integrity properties of the content chunk based on the
+application specific trust model. So, we need an application agnostic
+security model to work with.
+\item{Protection against Content Poisoning} \\
+Since there is no absolute binding between the name and the content,
+an attacker can claim that certain content can belong to a particular
+name. Our security model must prevent such an action.
+\end{enumerate}
+\subsection{Security Model}
+
+Previous work by [add-ref] argues that in order to provide security
+guarantees it is sufficient to bind any two pairs between name,
+content and publisher. We choose to bind name-content and
+name-publisher pairs.
+
+In order to understand how our security model functions let us look at
+some important chunk headers that nCID chunk contains.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[scale = 0.75]{ncid_chunk_structure}
+    \caption{nCID Content Chunk Structure}
+    \label{fig:ncid_chunk_structure}
+  \end{center}
+\end{figure}
+
+Name-content binding is provided by the digital signature that the
+publisher generates at publish time. Name-publisher binding is
+provided by the nCID itself. Following equations show how these
+bindings are created by the publisher.
+\begin{center}
+\texttt{\textbf{nCID = hash(Content Name, Publisher's Public Key Fingerprint)}}\\
+\texttt{\textbf{Signature = Encrpyt\_with\_Publisher's\_Private\_Key (Content Name, Content Data)}}\\
+\end{center}
+As long as the consumer knows about the name of the content and the
+original publisher's public key fingerprint, it can always generate a
+content request. So, we expect that some high level entity (such as a
+TLS connection) delivers these two parameters to the end consumer. In
+the next chapter about URLs, we see how sophisticated URLs for nCID
+can be used to serve this information.
+
+nCID intrinsic security checking is a two-step process as against to
+one-step process in case of CIDs. The entity that needs to verify
+authenticity and integrity of the content chunk must first fetch the
+public key that was used to verify the content. The content chunk
+contains a pointer to the public key chunk.
+
+Once the public key has been received, the consumer checks if nCID
+matches the hash of name and publisher’s public key fingerprint. It
+then decrypts the signature with the same public key. The decrypted
+signature is matched against name-content pair. If both these checks
+succeed, then consumer can safely believe that content is authentic
+and has not been tampered with.
+
+No matter what trust model the application uses, all the in-network
+devices need to perform only one public key fetch and the two checks
+for nCID and signature. Thus, the time required for verifying security
+properties is constant. Besides, it requires at most only one content
+chunk fetch. This satisfies our third requirement of verifying
+security properties at minimum cost.
+
+\subsection{Protection against Content Poisoning}
+Content poisoning is an attack in which the attacker claims that a
+certain malicious content belongs to certain name that has already
+been published in the network. Figure \ref{fig:content_poisoning}
+shows the motivating example.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[scale=0.5]{content_poisoning}
+  \caption{Content Poisoning}
+  \label{fig:content_poisoning}
+  \end{center}
+\end{figure}
+
+In this example, the original publisher facebook.com has published a
+nCID chunk named ``fb.com/cmu''. Facebook has verified the chunk and
+put its signature in the chunk header. Now, an attacker wants to claim
+that certain spoofed content actually belongs to the name
+fb.com/cmu. What possible options he has to fill in signature and the
+public key?
+
+\begin{itemize}
+
+\item{\textbf{Option 1: Public Key = Facebook’s Public Key}} \\
+If attacker uses facebook’s public key itself then he cannot generate
+the corresponding signature. So, this option is not really possible.
+
+\item{\textbf{Option 2: Use my own key}}\\
+Let’s say the attacker uses his own key to generate the signature. In
+that case, even though attacker successfully plants a spoofed
+signature in the chunk he breaks the nCID check.
+
+\end{itemize}
+
+So we have seen that the attacker has no way of successfully filling
+in the signature and public key field pairs. Content poisoning is thus
+not possible in our security model.
+
+\section{Conclusion}
+We defined a new content principal for XIA that allows us to directly
+address the content by human readable names. We argued that such a
+principal best suites the ``multiform web resources''. However, such a
+content addressing system faces the issue of content authenticity and
+content integrity. We defined security models that address these
+authenticity and integrity issues to provide us an alternate secure
+content principal.

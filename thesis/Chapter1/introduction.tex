@@ -1,4 +1,135 @@
-\chapter{Introduction}
-\label{sec:intro}
+\chapter{World Wide Web}
+\label{chap:www}
+The World Wide Web is arguably the most important application of the
+Internet. The World Wide Web is an information space that allows
+exchanging information objects called web resources between hosts. It
+was invented by English scientist Tim Berners-Lee in 1989[ref].
 
-Type your introduction here.  This is ``technically'' your first chapter of the dissertation/thesis.
+The web is so popular that the term is often used interchangeably with
+the Internet itself. However, these two are not the same. The Internet
+is a giant network of interconnected computers identified by IP
+address. Whereas, the web is a collection of web resources such as
+documents, videos, images that these interconnected computers can
+network. Essentially, the web runs \emph{on top of} the Internet.
+
+In this chapter we will take a closer look at the important components
+of the web.
+
+\section{Universal Resource Identifiers}
+The web resources are uniquely identified by something called as
+Universal Resource Identifiers or URIs. URI is a string of characters
+that can identify a web resource uniquely. This unique identification
+provides the network entities a way to identify and therefore
+\emph{request} as well as \emph{serve} a resource. RFC 2396 formally
+defined the format of URI. The definition was later refined by RFC
+3986. The simplified definition of the URI is as follows.
+\begin{center}
+  \begin{verbatim}
+  URI         = scheme : hierarchical-part [ ? query ] [ # fragment ]
+  hierarchical-part   = // authority path
+                         / path
+\end{verbatim}
+\end{center}
+\begin{itemize}
+  \item{\emph{Scheme:}} Examples of popular schemes are HTTP, FTP,
+    mailto etc.
+  \item{\emph{Hierarchical Part:}} Location of a web resource within
+    some logical hierarchy. Often, this part is formed by combining
+    the host (a registered name or an IPv4 address) and hierarchical
+    path (similar to UNIX file system paths).
+  \item{\emph{Query:}} Traditionally consists of key-value pairs.
+  \item{\emph{Fragment:}} A character string that identifies a
+    fragment in the resource. For example, a section in an article.
+\end{itemize}
+The example of a URI given in RFC 3986 is as follows.
+\begin{verbatim}
+foo://example.com:8042/over/there?name=ferret#nose
+\_/   \______________/\_________/ \_________/ \__/
+ |           |            |            |        |
+scheme     authority       path        query   fragment
+\end{verbatim}
+URL (Universal Resource Locator) is the most commonly used form of URI
+in the World Wide Web. In addition to uniquely identifying a web
+resource, URL also provides a way to locate the resource. Essentially,
+URL identifies a web resource by its network location.
+\section{Hypertext Transfer Protocol}
+The primary method used for publishing and retrieving these web
+resources is Hypertext Transfer Protocol (HTTP). Although HTTP is one
+of the many Internet communication protocols, the web resources are
+usually accessed via HTTP. HTTP is a request-response type of
+protocol. The HTTP clients or web clients request resources by sending
+a \texttt{HTTP GET} request to entities serving these resources. The
+entities that serve the web resources are called HTTP servers or Web
+Servers.
+
+\subsection{HTTP Session}
+HTTP Session is a sequence of request-response transactions. The HTTP
+client initiates a reliable transport session (a TCP session) with a
+HTTP server listening on a particular predefined port. The port number
+used by HTTP servers is usually 80. Once the session has been
+established, the client then sends a HTTP request to the
+server. Server responds back with a status line such as \texttt{HTTP
+  200 OK} and the message which contains the actual object.
+
+\subsection{HTTP Metadata}
+HTTP requests and responses are coupled with metadata that describe
+these requests and responses. The HTTP metadata describes one of the
+following:
+\begin{itemize}
+\item{HTTP Session - Describes the current HTTP session. For example,
+  metadata ``connection'' describes if the web server should
+  terminate the current HTTP session after this request / response or not.}
+\item{The Web Server - Describes the web server itself. For example,
+  the metadata ``Server'' gives the name of the server.}
+\item{The Web Client - Describes the web client. For example. the
+  metadata ``UserAgent'' is the user software that is requesting the resource}
+\item{Web Resource - Describes the web resource being served. For
+  example, ``Content-Length'' is the length of the resource being served.}
+\item{HTTP Services: Caching, Content Negotiation - HTTP supports
+  various services such caching at a web proxy or negotiation the form
+  of the content. Some of the metadata fields describe the attributes
+  of these services.}
+\end{itemize}
+
+\subsection{HTTP Methods}
+HTTP supports different request types. The following are the different
+types of methods that HTTP supports: \texttt{GET, HEAD, POST, PUT,
+  DELETE, TRACE, OPTIONS, CONNECT.} The HTTP method that is
+responsible for fetching a web resource is \texttt{GET}. The HTTP
+method \texttt{HEAD} is used when the web client is only interested
+in fetching the metadata associated with the web resource and does not
+worry about the actual web resource.
+
+\section{Web Resources}
+The resources in the web can be categorized in the following three
+types.
+
+\begin{itemize}
+  \item{Static Resources: Static resources are the web resources do
+    not change their form over a long time or based on the metadata
+    presented in the request. An example of a static resource is a
+    static image. A peculiar characteristic of a static resource is
+    that the URL often points to a file name. For example, the URL
+    \texttt{http://upload.wikimedia.org/wikimedia/google.jpg} points
+    to a \texttt{JPEG} file.}
+  \item{Dynamic Resources: A Web resource that is generated upon the
+    request from a web client is called a Dynamic
+    Resource. Personalized Facebook homepage is an example of a
+    dynamic resource.}
+  \item{Multiform Resources: Multiform resources are midway between
+    static and dynamic resources. A multiform web resource exists in
+    multiple different forms. Based on the context presented by the
+    requester, it changes its form. A webpage that changes its form
+    based on the UserAgent is an example of multiform resource. The
+    CNN homepage \texttt{http://www.cnn.com} is another such
+    example. The CNN homepage changes its form as and when news
+    arrive. But the URL that is used for retrieving the resource is
+    still the same.}
+\end{itemize}
+
+\section{Conclusion}
+In this chapter, we studied the background the World Wide Web that is
+relevant to the contribution of the thesis. The following chapter
+talks about future of Internet research and a candidate future
+Internet architecture - eXpressive Internet Architectire (XIA) in
+which we implement our ideas.

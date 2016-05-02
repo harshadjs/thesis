@@ -1,3 +1,42 @@
 \abstract
 
-Write your abstract here.  You should not include references or mathematical notation.
+The World Wide Web (WWW) has arguably been the most popular
+application of the Internet for years. Over a period of time, it has
+developed over the principles of host-centric IP internet. However,
+the limitations of today’s host-centric IP internet have motivated
+many future internet architectures that are centered around alternate
+principals such as content and services.
+
+In this thesis, we study the WWW and propose features needed by such
+clean slate future internet architectures that can benefit the
+WWW. The features that we propose are then implemented on eXpressive
+Internet Architecture (XIA) - a candidate future internet
+architecture.
+
+Most of the clean slate architectures proposed so far revolve around
+``a'' principal giving rise to networking infrastructural styles such
+as content-centric-networking or service-oriented networking. XIA
+argues that elevating one principal above others limits the ability to
+communicate with the other principals. Thus, XIA inherently supports
+co-existence of multiple communication principals.
+
+The WWW relies on a reliable transport layer for content delivery. We
+see how these coexisting principals cooperate to provide a new
+reliable content delivery architecture that offers content caching and
+reliable content transport as services. Despite being offered as
+services, we still maintain primary features offered by a content
+centric network such as in-network caching and content routing.
+
+We define a new principal type that allows fetching content by human
+readable names rather than cryptographically secure
+identifiers. Although human readable names are more convenient to for
+the WWW, they are more vulnerable to security threats than
+cryptographically secure identifiers. We address authenticity,
+integrity issues raised by human readable names. We then define a
+security model that allows endpoints as well as in-network devices to
+perform integrity, authenticity checks in constant time.
+
+To complete the story, we avoid the need of a huge naming system by
+defining URL scheme that directly address es the content. Based on
+these URL formats, the human readable identifiers and the new content
+delivery system proposed, we model the World Wide Web over XIA.
