@@ -12,7 +12,7 @@ specifies a mechanism to retrieve the resource. The URLs in general
 look like the following:
 
 \begin{center}
-  \textbf{\textit{protocol}://\textit{host}/\textit{path}}
+  \texttt{protocol://host/path}
 \end{center}
 
 The \textit{protocol} field specifies the scheme that should be used
@@ -46,18 +46,17 @@ content avoiding name lookups.
 \label{sec:urlcid}
 We propose following format for CID URLs.
 \begin{center}
-  \textbf{\textit{cid}://\textit{serialized-cid-dag}}
+  \texttt{cid://serialized-cid-dag}
 \end{center}
+\begin{figure}
+  \caption{An example CID DAG address}
+  \begin{center}
+    \includegraphics[scale = 0.75]{cid_dag_publisher}
+  \end{center}
+  \label{fig:cid_dag}
+\end{figure}
 In order to understand the process of DAG serialization, let us take
 an example of a CID DAG address as shown in \ref{fig:cid_dag}.
-
-\begin{figure}
-  \begin{center}
-    \label{fig:cid_dag}
-    \includegraphics[scale = 0.75]{cid_dag_publisher}
-    \caption{An example CID DAG address}
-  \end{center}
-\end{figure}
 
 We follow the following process to make a serialized version of the
 DAG:
@@ -73,11 +72,11 @@ DAG:
 \end{enumerate}
 
 \begin{figure}
-  \begin{center}
   \label{fig:cid_dag_serialization}
+  \begin{center}
   \includegraphics[scale=0.75]{dag_serialization}
-  \caption{CID DAG Serialization}
   \end{center}
+  \caption{CID DAG Serialization}
 \end{figure}
 
 This scheme results in an URL for CIDs that looks like this
@@ -98,12 +97,15 @@ the web.
 \section{URLs for nCIDs}
 We could readily use the URL scheme that we discussed in section
 \ref{sec:urlcid}. But, the disadvantage of such an approach is that
-the URLs created are highly unreadable. Since nCIDs are directly
-derived from human readable names, we define a URL scheme which
-results in URLs as we see today and yet avoids the need of name
+the URLs created are highly unreadable. Also, as we see in more detail
+in the following section, nCIDs are formed using \emph{attributes}
+that define the representation of the content chunks. The goal of URL
+design is to include those attributes in the URL. Since nCIDs are
+directly derived from human readable names, we define a URL scheme
+which results in URLs as we see today and yet avoids the need of name
 look-ups completely.
 
-\subsection{Addresses and Locators}
+\subsection{Addresses and Instance Addresses}
 \label{sec:addrnloc}
 We have seen that nCIDs are most useful for representing the multiform
 web resources. The peculiar characteristic of multiform resources is
@@ -111,23 +113,22 @@ that they change their form based on certain \emph{attributes}. In
 essence, all the representations of the same resource share the same
 \emph{address} but are uniquely identified when the address is coupled
 with the \emph{attributes}. We call the attributes that locate a
-certain representation of a resource the \emph{locators}.\\
-As a motivating example, let's take a case of multiform resources
+certain representation of a resource the \emph{instance address}.\\ As
+a motivating example, let's take a case of multiform resources
 identified by URL \emph{http://wikipedia.org/google}. It is easy to
 see that when this web resource is requested from a desktop it takes a
 certain representation. While the same resource, if requested from a
 mobile device, takes a completely different form. So, even though the
 two objects are totally different in terms of their content, they do
-share an identity. This identity is their address. To sum up,
-address of a multiform resource allows us to identify a resource and
-locators help us locate a representation of the resource.
-
+share an address. This identity is their address. To sum up, address
+of a multiform resource allows us to identify a resource and instance
+address helps us locate the derived representation of the resource.
 \begin{figure}
-\begin{center}
-  \label{fig:multiform-change}
-  \includegraphics[scale=0.75]{multiform_changing_form}
-  \caption{Multiform resource changing its form}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.75]{multiform_changing_form}
+    \caption{Multiform resource changing its form}
+    \label{fig:multiform-change}
+  \end{center}
 \end{figure}
 
 \subsection{nCID URL Design}
@@ -136,10 +137,10 @@ following format for the URLs of nCIDs.
 \begin{center}
   \textbf{ncid://address/locator1=value1\&locator2=value2\&...}
 \end{center}
-With respect to the motivating example shown in figure
+With respect to the motivating example shown in
 \ref{fig:multiform-change}, the address of the content is
 \emph{content.facebook.com} whereas an locator is
-\emph{UserAgent=Android}. Table \ref{tab:locators} shows the list of
+\emph{UserAgent=Android}. \ref{tab:locators} shows the list of
 possible locators. Our security model enforces us to mandate either
 the implicit or the explicit existence of a locator called
 \emph{certificate}. The locator \emph{certificate} is essentially the
@@ -156,9 +157,9 @@ authenticity and integrity of the named content chunk.
       Version & Version of the Content Chunk & No\\
       UserAgent & HTTP UserAgent & No\\
     \end{tabular}
-    \label{tab:locators}
   \end{center}
   \caption{List of Locators}
+  \label{tab:locators}
 \end{table}
 
 \section{Conclusion}

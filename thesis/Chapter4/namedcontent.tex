@@ -10,16 +10,16 @@ images, video chunks) are probably the best candidates for utilizing
 in-network storage. But, the majority of web content falls in the
 other two categories.
 
-It can be argued that dynamic resources can make the least of use out
-of in-network caches. The primary reason being that dynamic resources
-are generated upon the request arrival and hence are highly
-non-reusable.
+It can be argued that dynamic resources can benefit the least from of
+in-network caches. The primary reason being that dynamic resources are
+generated upon the request arrival and hence are highly
+non-reusable. This, clients can thus
 
 But the resources that are of interest to us are the multiform
 resources that we saw in chapter \ref{chap:www}. Recall that these
-resources exists in multiple forms at a same time or at different
+resources exist in multiple forms at a same time or at different
 times. Clients \emph{choose} a representation that suites their need
-the mot. They are reusable for the very reason that upon sending the
+the best. They are reusable for the very reason that upon sending the
 same request multiple times, they respond with the same content. What
 can we do to make these multiform resources cacheable at the same time
 preserve their multiformity?
@@ -47,21 +47,18 @@ are accessed has been increasing like never before. That poses us with
 the challenge of presenting the same resource in different forms based
 on the platform that the user is requesting the resource from.
 
-Cryptographic identifiers have the disadvantage that an identifier can
-only point to a particular representation. It also implies that it is
-not possible for us to allocate an identifier for content that we
-don’t know in advance. So, crypto IDs do not support the property of
-late binding.
+CIDs have the disadvantage that an identifier can only point to a
+particular representation. It also implies that it is not possible for
+us to allocate an identifier for content that we don’t know in
+advance. So, crypto IDs do not support the property of late binding.
 
 \section{Locating Content using Human Readable Names}
 
 In the last section we saw the reasons why the world wide web
-identifies and locates resources by human readable names. Let’s dive
-deep into the process of locating and fetching of a resource
-identified by a human readable name.
-%<explain what happens today>
-Possible approaches to locate content using human readable names in
-XIA are as follows:
+identifies and locates resources by human readable names. Let’s see
+the possible options to locate content using human readable names in
+eXpressive Internet Architecture.
+
 \begin{itemize}
 \item Keep a DNS like mapping system that maps names to CIDs
 \item Locate content directly by human readable names
@@ -89,11 +86,12 @@ consumer could take from one to several roundtrips before it can know
 the CID corresponding to the content name.
 
 Security Issues: Once the consumer receives CID corresponding to a
-name why would the consumer believe that mapping between the name and
-the CID is authentic? Hence, the content retrieval architecture must
-address the security issues somewhere. However, that loses the whole
-point of having cryptographic identifiers. Remember that one important
-property of crypto-IDs is that they are self certifying.
+human readable name why would the consumer believe that mapping
+between the human readable name and the CID is authentic? Hence, the
+content retrieval architecture must address these security issues
+somewhere. However, that loses the whole point of having cryptographic
+identifiers. Remember that one important property of CIDs is that they
+are self certifying.
 
 Because of the issues mentioned above, it becomes unwise to use a
 naming system for locating content by name. Therefore, we take the
@@ -124,24 +122,29 @@ publisher.
 \begin{table}
   \begin{center}
     \begin{tabular}
-      {l | c}
+      {p{2in}  p{3in}}
+      API & Details \\
       \hline
-      XputChunk & StoreContent(), XaddRoute() \\
-      XgetChunk & Xconnect(CID Dag), Xrecv() \\
+      XputNamedContent(Buffer, Name, Certificate, Signature) &
+      Publishes a named content chunk with the corresponding signature
+      and the certificate\\
+      XgetNamedChunk(Name, Certificate) & Fetches a name content chunk
+      and verifies the authenticity and integrity using the public key
+      certificate\\
     \end{tabular}
-    \caption{nCID Principal Semantics}
-    \label{tab:ncidapis}
   \end{center}
+  \caption{nCID Principal Semantics}
+  \label{tab:ncidapis}
 
 \end{table}
 
 The nCID principal allows users to retrieve content identified by
-human readable names from anywhere in the network. Table
-\ref{tab:ncidapis} shows the APIs that nCID supports. Similar to CIDs,
-sending content request for nCID type using \texttt{getNamedContent()}
-initiates a transport session with any in-network cache or the
-original publisher. This reliable transport session is then used to
-deliver content to end consumers.
+human readable names from anywhere in the network. \ref{tab:ncidapis}
+shows the APIs that nCID supports. Similar to CIDs, sending content
+request for nCID type using \texttt{getNamedContent()} initiates a
+transport session with any in-network cache or the original
+publisher. This reliable transport session is then used to deliver
+content to end consumers.
 
 The \texttt{publishNamedContent(name, signature, public key
   fingerprint)} call tells the network that the content identified by
@@ -190,10 +193,9 @@ name. Our security model must prevent such an action.
 \end{enumerate}
 \subsection{Security Model}
 
-Previous work by [add-ref] argues that in order to provide security
-guarantees it is sufficient to bind any two pairs between name,
-content and publisher. We choose to bind name-content and
-name-publisher pairs.
+Previous work argues that in order to provide security guarantees it
+is sufficient to bind any two pairs between name, content and
+publisher. We choose to bind name-content and name-publisher pairs.
 
 In order to understand how our security model functions let us look at
 some important chunk headers that nCID chunk contains.
@@ -221,7 +223,7 @@ TLS connection) delivers these two parameters to the end consumer. In
 the next chapter about URLs, we see how sophisticated URLs for nCID
 can be used to serve this information.
 
-nCID intrinsic security checking is a two-step process as against to
+nCID intrinsic security checking is a two-step process in contrast to
 one-step process in case of CIDs. The entity that needs to verify
 authenticity and integrity of the content chunk must first fetch the
 public key that was used to verify the content. The content chunk
@@ -244,8 +246,8 @@ security properties at minimum cost.
 \subsection{Protection against Content Poisoning}
 Content poisoning is an attack in which the attacker claims that a
 certain malicious content belongs to certain name that has already
-been published in the network. Figure \ref{fig:content_poisoning}
-shows the motivating example.
+been published in the network. \ref{fig:content_poisoning} shows the
+motivating example.
 
 \begin{figure}
   \begin{center}
