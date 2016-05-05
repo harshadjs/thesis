@@ -1,9 +1,0 @@
-* Content Streaming
-
-** Content Serving Daemon
-
-- Manages content on behalf of content apps
-
-** Design
-
-- 

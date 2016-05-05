@@ -1,23 +1,2 @@
-#+TITLE: Make Arguments!
-
-* Current Status
-  |-----------------------------+-------------------+----------------------+-------------|
-  | Item                        | Expected Deadline | Status               | Timestamp   |
-  |-----------------------------+-------------------+----------------------+-------------|
-  | Caching APIs Final Proposal | May 28th          |                      |             |
-  |                             |                   | Dan's Mail           | Apr 10 2015 |
-  |                             |                   | Xcache APIs proposed | Apr 7 2015  |
-  |-----------------------------+-------------------+----------------------+-------------|
-  | Reliable Transport Proposal | May 28th          |                      |             |
-  |-----------------------------+-------------------+----------------------+-------------|
-* Tasks
-** Caching APIs
-	- Take a specific usecase and see what APIs would it require.
-	- Do this for several usecases.
-	  - Network Operator
-	  - Video Distribution System
-	- Come up with a final proposal
-** Reliable Transport Protocol for Content Chunks
-** 
-
-* Readings
+* The web in the face of future Internet architectures
+The repository contains latex source of my thesis.
